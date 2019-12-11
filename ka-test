@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if [ -z $1 ]
+then
+	echo "Usage $0 fqdn"
+	echo "Example : $0 www.disney.com"
+elif [[ $(curl -Iv http://$1 2>&1 | grep -i 'connection #0') ]]
+then
+	echo "Keep-alive is active and working"
+	echo
+	echo -n "test output "
+	curl -Iv http://$1 2>&1 | grep -i 'connection #0'
+else
+	echo "Keep-alive is not available"
+fi
+
